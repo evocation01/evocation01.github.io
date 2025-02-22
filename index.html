@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Evocation01</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; background-color: #f4f4f4; }
+        header { background: #333; color: white; padding: 20px; font-size: 24px; }
+        section { padding: 50px; }
+        .container { max-width: 800px; margin: auto; }
+        .projects a { display: block; margin: 10px 0; color: #0073e6; text-decoration: none; }
+        .filter-buttons { margin-bottom: 20px; }
+        .filter-buttons button { margin: 5px; padding: 10px; border: none; background: #0073e6; color: white; cursor: pointer; }
+        .filter-buttons button:hover { background: #005bb5; }
+        .project { display: none; padding: 10px; background: white; margin: 10px 0; border-radius: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.2); }
+        .project a { text-decoration: none; color: #0073e6; }
+    </style>
+    <script>
+        function filterProjects(category) {
+            let projects = document.querySelectorAll('.project');
+            projects.forEach(project => {
+                if (category === 'all' || project.classList.contains(category)) {
+                    project.style.display = 'block';
+                } else {
+                    project.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Portfolio</h1>
+    </header>
+    
+    <section id="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <p>Hi, I'm Evocation01, a developer and data scientist working on various projects including Power BI, Python, Machine Learning, Web Development, and more.</p>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2>My Projects</h2>
+            <div class="filter-buttons">
+                <button onclick="filterProjects('all')">All</button>
+                <button onclick="filterProjects('python')">Python</button>
+                <button onclick="filterProjects('powerbi')">Power BI</button>
+                <button onclick="filterProjects('datascience')">Data Science</button>
+                <button onclick="filterProjects('ml')">Machine Learning</button>
+                <button onclick="filterProjects('html')">Web Development</button>
+            </div>
+            <div class="projects">
+                <div class="project python"><a href="https://github.com/evocation01/projects#python" target="_blank">Python Projects</a></div>
+                <div class="project powerbi"><a href="https://github.com/evocation01/projects#powerbi" target="_blank">Power BI Dashboards</a></div>
+                <div class="project datascience"><a href="https://github.com/evocation01/projects#datascience" target="_blank">Data Science Projects</a></div>
+                <div class="project ml"><a href="https://github.com/evocation01/projects#ml" target="_blank">Machine Learning Models</a></div>
+                <div class="project html"><a href="https://github.com/evocation01/projects#webdevelopment" target="_blank">Web Development Projects</a></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>Contact Me</h2>
+            <p>Let's connect! Find me on:</p>
+            <p><a href="https://github.com/evocation01" target="_blank">GitHub</a> | <a href="#">LinkedIn</a> | <a href="mailto:your@email.com">Email</a></p>
+        </div>
+    </section>
+
+    <section id="resume">
+        <div class="container">
+            <h2>Resume & Links</h2>
+            <p>Find my latest resume and professional links here:</p>
+            <p><a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn</a></p>
+            <p><a href="/resume.pdf" target="_blank">Download My Resume (PDF)</a></p>
+            <p><a href="mailto:your@email.com">Email Me</a></p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Evocation01. All rights reserved.</p>
+    </footer>
+</body>
+</html>
