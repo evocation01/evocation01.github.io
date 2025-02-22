@@ -37,7 +37,7 @@
     <section id="about">
         <div class="container">
             <h2>About Me</h2>
-            <p>Hi, I'm Evocation01, a developer and data scientist working on various projects including Power BI, Python, Machine Learning, Web Development, and more.</p>
+        <p>Hi, I'm Hakan Ispir, a developer and data scientist working on various projects including Power BI, Python, Machine Learning, Web Development, and more. I am currently pursuing a Bachelor's degree in Industrial Engineering at Marmara University.</p>
         </div>
     </section>
 
@@ -45,13 +45,17 @@
         <div class="container">
             <h2>My Projects</h2>
             <div class="filter-buttons">
-                <button onclick="filterProjects('all')">All</button>
-                <button onclick="filterProjects('python')">Python</button>
-                <button onclick="filterProjects('powerbi')">Power BI</button>
-                <button onclick="filterProjects('datascience')">Data Science</button>
-                <button onclick="filterProjects('ml')">Machine Learning</button>
-                <button onclick="filterProjects('html')">Web Development</button>
-            </div>
+    <div>
+        <button onclick="filterProjects('all')">All</button>
+        <button onclick="filterProjects('python')">Python</button>
+    </div>
+    <div>
+        <button onclick="filterProjects('powerbi')">Power BI</button>
+        <button onclick="filterProjects('datascience')">Data Science</button>
+        <button onclick="filterProjects('ml')">Machine Learning</button>
+        <button onclick="filterProjects('html')">Web Development</button>
+    </div>
+</div>
             <div class="projects">
                 <div class="project python"><a href="https://github.com/evocation01/projects#python" target="_blank">Python Projects</a></div>
                 <div class="project powerbi"><a href="https://github.com/evocation01/projects#powerbi" target="_blank">Power BI Dashboards</a></div>
@@ -74,17 +78,14 @@
         <div class="container">
             <div style="display: flex; justify-content: space-between;">
                 <div style="width: 48%;">
-                    <h2>Resume</h2>
-                    <p><a href="#" id="resume-link" target="_blank">Download My Resume (PDF)</a></p>
+                    
                 </div>
                 <div style="width: 48%;">
                     <h2>Email</h2>
                     <p><a href="mailto:hakanispir1789@outlook.com" style="color: rgb(0, 115, 230); text-decoration: none; font-weight: bold;">hakanispir1789@outlook.com</a></p>
                 </div>
             </div>
-            <h2>Resume</h2>
             
-            <p><a href="#" id="resume-link" target="_blank">Download My Resume (PDF)</a></p>
 <script>
     fetch('https://api.github.com/repos/evocation01/evocation01.github.io/contents/')
         .then(response => response.json())
