@@ -61,9 +61,12 @@ function displayProjects(projects, validTags) {
     });
 }
 
-// ✅ Fix: Make Buttons Work
 function filterProjects(category) {
     let projects = document.querySelectorAll('.project');
+
+    // Save current scroll position
+    const currentScroll = window.scrollY;
+
     projects.forEach(project => {
         if (category === 'all' || project.classList.contains(category)) {
             project.style.display = 'block';
@@ -71,6 +74,10 @@ function filterProjects(category) {
             project.style.display = 'none';
         }
     });
+
+    // Restore scroll position to prevent jumping
+    window.scrollTo(0, currentScroll);
 }
+
 
 fetchProjects();
