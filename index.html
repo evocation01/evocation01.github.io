@@ -15,19 +15,8 @@
         .filter-buttons button:hover { background: #005bb5; }
         .project { display: none; padding: 10px; background: white; margin: 10px 0; border-radius: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.2); }
         .project a { text-decoration: none; color: #0073e6; }
+        .highlighted { border: 2px solid gold; font-weight: bold; } /* Highlight 5-star projects */
     </style>
-    <script>
-        function filterProjects(category) {
-            let projects = document.querySelectorAll('.project');
-            projects.forEach(project => {
-                if (category === 'all' || project.classList.contains(category)) {
-                    project.style.display = 'block';
-                } else {
-                    project.style.display = 'none';
-                }
-            });
-        }
-    </script>
 </head>
 <body>
     <header>
@@ -37,8 +26,8 @@
     <section id="about">
         <div class="container">
             <h2>About Me</h2>
-        <p> I am a programmer and data scientist working on various projects including Power BI, Python, Machine Learning, Web Development, and more. </p>
-        <p> I am currently pursuing a Bachelor's degree in Industrial Engineering at Marmara University.</p>
+            <p>I am a programmer and data scientist working on various projects including Power BI, Python, Machine Learning, Web Development, and more.</p>
+            <p>I am currently pursuing a Bachelor's degree in Industrial Engineering at Marmara University.</p>
         </div>
     </section>    
 
@@ -46,65 +35,21 @@
         <div class="container">
             <h2>My Projects</h2>
             <div class="filter-buttons">
-    <div>
-        <button onclick="filterProjects('all')">All</button>
-        <button onclick="filterProjects('python')">Python</button>
-    </div>
-    <div>
-        <button onclick="filterProjects('powerbi')">Power BI</button>
-        <button onclick="filterProjects('datascience')">Data Science</button>
-        <button onclick="filterProjects('ml')">Machine Learning</button>
-        <button onclick="filterProjects('html')">Web Development</button>
-    </div>
-</div>
-            <div class="projects">
-                <div class="project python"><a href="https://github.com/evocation01/projects#python" target="_blank">Python Projects</a></div>
-                <div class="project powerbi"><a href="https://github.com/evocation01/projects#powerbi" target="_blank">Power BI Dashboards</a></div>
-                <div class="project datascience"><a href="https://github.com/evocation01/projects#datascience" target="_blank">Data Science Projects</a></div>
-                <div class="project ml"><a href="https://github.com/evocation01/projects#ml" target="_blank">Machine Learning Models</a></div>
-                <div class="project html"><a href="https://github.com/evocation01/projects#webdevelopment" target="_blank">Web Development Projects</a></div>
+                <button onclick="filterProjects('all')">ALL</button>
+                <button onclick="filterProjects('python')">Python</button>
+                <button onclick="filterProjects('machine-learning')">Machine Learning</button>
+                <button onclick="filterProjects('web-development')">Web Development</button>
+                <button onclick="filterProjects('industrial-engineering')">Industrial Engineering</button>
+                <button onclick="filterProjects('data-science')">Data Science</button>
+                <button onclick="filterProjects('power-bi')">Power BI</button>
             </div>
+            <div class="projects"></div> <!-- Dynamic content will be loaded here -->
         </div>
     </section>
 
-    <section id="contact">
-        <div class="container">
-            <h2>Contact Me</h2>
-            <p>Let's connect! Find me on:</p>
-            <p><a href="https://github.com/evocation01" target="_blank">GitHub</a> | <a href="https://linkedin.com/in/hakanispir" target="_blank">LinkedIn</a> | <a href="https://www.freelancer.com/u/ihakan83" target="_blank">Freelancer</a></p>
-            <p style="text-align: center; margin-top: 10px;">Hakan Ispir</p>
-        </div>
-    </section>
+    <script src="projects.js"></script>
+    <script src="datasci.js"></script>
+    <script src="powerbi.js"></script>
 
-    <section id="resume">
-        <div class="container">
-            <div style="display: flex; justify-content: space-between;">
-                <div style="width: 48%;">
-                    <h2>Resume</h2>
-                    <p><a href="#" id="resume-link" target="_blank">Download My Resume (PDF)</a></p>
-                </div>
-                <div style="width: 48%;">
-                    <h2>Email</h2>
-                    <p><a href="mailto:hakanispir1789@outlook.com" style="color: rgb(0, 115, 230); text-decoration: none; font-weight: bold;">hakanispir1789@outlook.com</a></p>
-                </div>
-            </div>
-            
-<script>
-    fetch('https://api.github.com/repos/evocation01/evocation01.github.io/contents/')
-        .then(response => response.json())
-        .then(files => {
-            let resumeFile = files.find(file => file.name.toLowerCase().includes('resume'));
-            if (resumeFile) {
-                document.getElementById('resume-link').href = resumeFile.download_url;
-            }
-        })
-        .catch(error => console.error('Error fetching resume file:', error));
-</script>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 Evocation01. All rights reserved.</p>
-    </footer>
 </body>
 </html>
