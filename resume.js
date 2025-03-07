@@ -2,33 +2,19 @@ document.addEventListener("DOMContentLoaded", function () {
     setResumeLink();
 });
 
-async function setResumeLink() {
-    try {
-        const siteUrl = "https://evocation01.github.io/";
-        const response = await fetch(siteUrl);
-        if (!response.ok) throw new Error("Failed to fetch site files");
+function setResumeLink() {
+    const siteUrl = "https://evocation01.github.io/";
 
-        const text = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(text, "text/html");
+    // Your exact resume filename
+    const resumeFileName = "07032025_Resume - Hakan ispir.pdf";  // Update this if needed
+    const resumeUrl = siteUrl + resumeFileName;
 
-        // Extract all file names from the site's directory listing
-        const links = [...doc.querySelectorAll("a")].map(link => link.getAttribute("href"));
-
-        // Find the most recent resume file (contains "resume" and ends with .pdf)
-        const resumeFile = links.find(file => file.toLowerCase().includes("resume") && file.toLowerCase().endsWith(".pdf"));
-
-        if (resumeFile) {
-            const resumeUrl = siteUrl + resumeFile;
-            const downloadLink = document.getElementById("resume-download");
-
-            // Set the correct resume link
-            downloadLink.setAttribute("href", resumeUrl);
-            downloadLink.setAttribute("download", resumeFile);
-        } else {
-            console.warn("No resume file found.");
-        }
-    } catch (error) {
-        console.error("Error fetching resume file:", error);
+    const downloadLink = document.getElementById("resume-download");
+    if (downloadLink) {
+        downloadLink.setAttribute("href", resumeUrl);
+        downloadLink.setAttribute("download", resumeFileName);
+        console.log(`✅ Resume linked: ${resumeUrl}`);
+    } else {
+        console.error("❌ Resume download link not found in HTML.");
     }
 }
