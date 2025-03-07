@@ -1,5 +1,5 @@
 async function fetchDataScienceProjects() {
-    const repoUrl = "https://api.github.com/repos/evocation01/data-sci/contents/";
+    const repoUrl = "https://api.github.com/repos/evocation01/data-sci/contents";
     
     try {
         const response = await fetch(repoUrl);
