@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Evocation01</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; background-color: #f4f4f4; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; background-color: #181818; color: white; }
         header { background: #333; color: white; padding: 20px; font-size: 24px; }
         section { padding: 50px; }
         .container { max-width: 800px; margin: auto; }
@@ -15,7 +15,8 @@
         .filter-buttons button:hover { background: #005bb5; }
         .project { display: none; padding: 10px; background: white; margin: 10px 0; border-radius: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.2); }
         .project a { text-decoration: none; color: #0073e6; }
-        .highlighted { border: 2px solid gold; font-weight: bold; } /* Highlight 5-star projects */
+        .highlighted { border: 2px solid gold; font-weight: bold; }
+        iframe { border: none; }
     </style>
 </head>
 <body>
@@ -31,6 +32,16 @@
         </div>
     </section>    
 
+    <section id="resume">
+        <div class="container">
+            <h2>Resume</h2>
+            <p>
+                <a id="resume-download" href="#" target="_blank" download>📄 Download My Resume (PDF)</a>
+            </p>
+            <iframe id="resume-viewer" src="" width="100%" height="500px" style="display: none;"></iframe>
+        </div>
+    </section>
+
     <section id="projects">
         <div class="container">
             <h2>My Projects</h2>
@@ -43,7 +54,7 @@
                 <button onclick="filterProjects('data-science')">Data Science</button>
                 <button onclick="filterProjects('power-bi')">Power BI</button>
             </div>
-            <div class="projects"></div> <!-- Dynamic content will be loaded here -->
+            <div class="projects"></div>
         </div>
     </section>
 
@@ -51,5 +62,30 @@
     <script src="datasci.js"></script>
     <script src="powerbi.js"></script>
 
+    <script>
+        async function fetchLatestResume() {
+            try {
+                const repoUrl = "https://api.github.com/repos/evocation01/evocation01.github.io/contents/";
+                const response = await fetch(repoUrl);
+                const files = await response.json();
+
+                // Find the latest resume file (assuming it contains 'resume' in the name)
+                const resumeFile = files.find(file => file.name.toLowerCase().includes('resume') && file.name.endsWith('.pdf'));
+
+                if (resumeFile) {
+                    const resumeUrl = resumeFile.download_url;
+                    document.getElementById('resume-download').href = resumeUrl;
+
+                    // Enable resume view mode
+                    document.getElementById('resume-viewer').src = resumeUrl;
+                    document.getElementById('resume-viewer').style.display = "block";
+                }
+            } catch (error) {
+                console.error("Error fetching resume file:", error);
+            }
+        }
+
+        fetchLatestResume();
+    </script>
 </body>
 </html>
