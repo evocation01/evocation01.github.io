@@ -16,7 +16,7 @@
         .project { display: none; padding: 10px; background: white; margin: 10px 0; border-radius: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.2); }
         .project a { text-decoration: none; color: #0073e6; }
         .highlighted { border: 2px solid gold; font-weight: bold; }
-        iframe { border: none; }
+        iframe { border: none; width: 100%; height: 500px; display: none; }
     </style>
 </head>
 <body>
@@ -36,9 +36,10 @@
         <div class="container">
             <h2>Resume</h2>
             <p>
-                <a id="resume-download" href="#" target="_blank" download>📄 Download My Resume (PDF)</a>
+                <a id="resume-download" href="#" target="_blank">📄 Download My Resume (PDF)</a>
             </p>
-            <iframe id="resume-viewer" src="" width="100%" height="500px" style="display: none;"></iframe>
+            <button onclick="toggleResume()">📂 View Resume</button>
+            <iframe id="resume-viewer"></iframe>
         </div>
     </section>
 
@@ -69,20 +70,32 @@
                 const response = await fetch(repoUrl);
                 const files = await response.json();
 
-                // Find the latest resume file (assuming it contains 'resume' in the name)
                 const resumeFile = files.find(file => file.name.toLowerCase().includes('resume') && file.name.endsWith('.pdf'));
 
                 if (resumeFile) {
                     const resumeUrl = resumeFile.download_url;
                     document.getElementById('resume-download').href = resumeUrl;
-
-                    // Enable resume view mode
                     document.getElementById('resume-viewer').src = resumeUrl;
-                    document.getElementById('resume-viewer').style.display = "block";
                 }
             } catch (error) {
                 console.error("Error fetching resume file:", error);
             }
+        }
+
+        function toggleResume() {
+            let viewer = document.getElementById('resume-viewer');
+            viewer.style.display = viewer.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function filterProjects(category) {
+            let projects = document.querySelectorAll('.project');
+            projects.forEach(project => {
+                if (category === 'all' || project.classList.contains(category)) {
+                    project.style.display = 'block';
+                } else {
+                    project.style.display = 'none';
+                }
+            });
         }
 
         fetchLatestResume();
