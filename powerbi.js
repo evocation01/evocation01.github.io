@@ -1,5 +1,5 @@
 async function fetchPowerBIProjects() {
-    const repoUrl = "https://api.github.com/repos/evocation01/power-bi/contents/";
+    const repoUrl = "https://api.github.com/repos/evocation01/power-bi/contents";
     
     try {
         const response = await fetch(repoUrl);
