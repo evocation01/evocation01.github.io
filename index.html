@@ -56,40 +56,50 @@
         </div>
     </section>
 
-    <script src="projects.js"></script>
-    <script src="datasci.js"></script>
-    <script src="powerbi.js"></script>
-
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetchLatestResume();
+            setupProjectFiltering();
+        });
+
         async function fetchLatestResume() {
             try {
                 const repoUrl = "https://api.github.com/repos/evocation01/evocation01.github.io/contents/";
                 const response = await fetch(repoUrl);
-                const files = await response.json();
+                if (!response.ok) throw new Error("Failed to fetch repo contents");
 
+                const files = await response.json();
                 const resumeFile = files.find(file => file.name.toLowerCase().includes('resume') && file.name.endsWith('.pdf'));
 
                 if (resumeFile) {
                     const resumeUrl = resumeFile.download_url;
-                    document.getElementById('resume-download').setAttribute("href", resumeUrl);
+                    const downloadLink = document.getElementById('resume-download');
+                    downloadLink.setAttribute("href", resumeUrl);
+                    downloadLink.setAttribute("download", resumeFile.name); // Fixes the auto-refresh issue
                 }
             } catch (error) {
                 console.error("Error fetching resume file:", error);
             }
         }
 
-        function filterProjects(category) {
+        function setupProjectFiltering() {
             let projects = document.querySelectorAll('.project');
-            projects.forEach(project => {
-                if (category === 'all' || project.classList.contains(category)) {
-                    project.style.display = 'block';
-                } else {
-                    project.style.display = 'none';
-                }
-            });
-        }
 
-        fetchLatestResume();
+            window.filterProjects = function(category) {
+                projects.forEach(project => {
+                    if (category === 'all' || project.classList.contains(category)) {
+                        project.style.display = 'block';
+                    } else {
+                        project.style.display = 'none';
+                    }
+                });
+            };
+        }
     </script>
+
+    <script src="projects.js"></script>
+    <script src="datasci.js"></script>
+    <script src="powerbi.js"></script>
+
 </body>
 </html>
