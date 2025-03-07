@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 async function fetchLatestResume() {
     try {
-        const repoUrl = "https://api.github.com/repos/evocation01/evocation01.github.io/contents/";
+        const repoUrl = "https://api.github.com/repos/evocation01/evocation01.github.io/contents";
         const response = await fetch(repoUrl);
         if (!response.ok) throw new Error("Failed to fetch repo contents");
 
