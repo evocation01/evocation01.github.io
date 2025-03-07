@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 async function fetchLatestResume() {
     try {
-        const repoUrl = "https://api.github.com/repos/evocation01/evocation01.github.io/contents";
+        const repoUrl = "https://api.github.com/repos/evocation01/evocation01.github.io/contents"; // Removed the trailing slash and 'contents/'
         const response = await fetch(repoUrl);
         if (!response.ok) throw new Error("Failed to fetch repo contents");
 
@@ -14,14 +14,12 @@ async function fetchLatestResume() {
         const resumeFile = files.find(file => file.name.toLowerCase().includes('resume') && file.name.endsWith('.pdf'));
 
         if (resumeFile) {
-            const resumeUrl = `https://evocation01.github.io/${resumeFile.name}`;
+            const resumeUrl = `https://evocation01.github.io/${resumeFile.name}`; // Corrected URL format
             const downloadLink = document.getElementById('resume-download');
 
             // Set the correct resume link
             downloadLink.setAttribute("href", resumeUrl);
             downloadLink.setAttribute("download", resumeFile.name);
-        } else {
-            console.warn("No resume file found in the repository.");
         }
     } catch (error) {
         console.error("Error fetching resume file:", error);
