@@ -3,15 +3,17 @@ async function fetchDataScienceProjects() {
 
     try {
         const response = await fetch(repoUrl);
+        if (!response.ok) throw new Error("Failed to load Data Science projects");
+
         const data = await response.json();
 
         let projects = await Promise.all(data
-            .filter(item => item.type === "dir") // ✅ Only check folders
+            .filter(item => item.type === "dir") // ✅ Only process folders
             .map(async folder => {
                 const metadataUrl = `https://raw.githubusercontent.com/evocation01/data-sci/main/${folder.name}/metadata.json`;
                 try {
                     const metaResponse = await fetch(metadataUrl);
-                    if (!metaResponse.ok) return null;  // ✅ Skip if metadata.json is missing
+                    if (!metaResponse.ok) return null;  // ✅ Skip folders without metadata.json
                     const metadata = await metaResponse.json();
 
                     return {
