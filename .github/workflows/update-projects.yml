@@ -1,0 +1,72 @@
+name: Update Project Data
+
+on:
+  schedule:
+    - cron: "0 0 * * *"  # ✅ Runs once per day at midnight UTC
+  push:
+    branches:
+      - main  # ✅ Runs when a commit is pushed to main
+  workflow_dispatch:  # ✅ Allows manual trigger
+
+jobs:
+  update-projects:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Fetch Data Science Projects
+        run: |
+          curl -H "Authorization: token ${{ secrets.PORTFOLIO_PAGE_TOKEN }}" \
+               -H "User-Agent: evocation01" \
+               "https://api.github.com/repos/evocation01/data-sci/contents" \
+               | jq '.' > data/data-sci.json
+
+      - name: Fetch Power BI Projects
+        run: |
+          curl -H "Authorization: token ${{ secrets.PORTFOLIO_PAGE_TOKEN }}" \
+               -H "User-Agent: evocation01" \
+               "https://api.github.com/repos/evocation01/power-bi/contents" \
+               | jq '.' > data/power-bi.json
+
+      - name: Fetch Projects Metadata
+        run: |
+          mkdir -p data/projects
+          projects_api="https://api.github.com/repos/evocation01/projects/contents"
+
+          # Fetch all project folders
+          curl -H "Authorization: token ${{ secrets.PORTFOLIO_PAGE_TOKEN }}" \
+               -H "User-Agent: evocation01" \
+               "$projects_api" | jq -r '.[] | select(.type=="dir") | .name' > project_list.txt
+
+          echo "Processing projects..."
+          echo "[]" > data/projects.json  # Start with empty JSON array
+
+          # Loop through all project folders
+          while read -r project; do
+            metadata_url="https://raw.githubusercontent.com/evocation01/projects/main/$project/metadata.json"
+            metadata_file="data/projects/$project.json"
+
+            # Fetch metadata.json if it exists
+            curl -s -H "Authorization: token ${{ secrets.PORTFOLIO_PAGE_TOKEN }}" \
+                 -H "User-Agent: evocation01" \
+                 "$metadata_url" -o "$metadata_file"
+
+            if [ -s "$metadata_file" ]; then
+              echo "✅ Found metadata for $project"
+              jq --arg url "https://github.com/evocation01/projects/tree/main/$project" \
+                 '. + { "url": $url }' "$metadata_file" >> data/projects.json
+            else
+              echo "❌ No metadata found for $project, skipping..."
+              rm -f "$metadata_file"
+            fi
+          done < project_list.txt
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          git add data/data-sci.json data/power-bi.json data/projects.json
+          git commit -m "🔄 Auto-update project data"
+          git push
