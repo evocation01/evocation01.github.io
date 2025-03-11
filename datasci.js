@@ -6,6 +6,11 @@ async function fetchDataScienceProjects() {
         if (!response.ok) throw new Error("Failed to load Data Science projects");
 
         const data = await response.json();
+        console.log("✅ Fetched Data Science JSON:", data); // Debugging log
+
+        if (!Array.isArray(data)) {
+            throw new Error("Invalid data format: Expected an array.");
+        }
 
         let projects = data
             .filter(item => item.type === "file") // ✅ Only process files as projects
