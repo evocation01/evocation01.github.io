@@ -1,17 +1,21 @@
 async function findResumeFile() {
-    const repoUrl = "data/"; // ✅ Change this if the folder is different
+    const repoUrl = "data/data-sci.json"; // ✅ Using existing JSON
 
     try {
         const response = await fetch(repoUrl);
         if (!response.ok) throw new Error("Failed to fetch resume directory");
 
         const data = await response.json();
+        console.log("✅ Fetched Data JSON:", data); // Debugging log
+
+        // Ensure data is an array, otherwise extract files
+        const files = Array.isArray(data) ? data : data.files || [];
 
         // ✅ Find a file with "resume" in the name (case-insensitive)
-        const resumeFile = data.find(file => file.name.toLowerCase().includes("resume"));
+        const resumeFile = files.find(file => file.name.toLowerCase().includes("resume"));
 
         if (resumeFile) {
-            const resumeUrl = `${repoUrl}${resumeFile.name}`;
+            const resumeUrl = `data/${resumeFile.name}`;
             const downloadLink = document.getElementById("resume-download");
 
             downloadLink.setAttribute("href", resumeUrl);
