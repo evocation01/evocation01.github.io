@@ -7,28 +7,13 @@ async function fetchDataScienceProjects() {
 
         const data = await response.json();
 
-        let projects = await Promise.all(data
-            .filter(item => item.type === "dir") // ✅ Only process folders
-            .map(async folder => {
-                const metadataUrl = `https://raw.githubusercontent.com/evocation01/data-sci/main/${folder.name}/metadata.json`;
-                try {
-                    const metaResponse = await fetch(metadataUrl);
-                    if (!metaResponse.ok) return null;  // ✅ Skip folders without metadata.json
-                    const metadata = await metaResponse.json();
+        let projects = data
+            .filter(item => item.type === "file") // ✅ Only process files as projects
+            .map(file => ({
+                name: file.name,
+                url: `https://github.com/evocation01/data-sci/blob/main/${file.name}`
+            }));
 
-                    return {
-                        name: metadata.name,
-                        tags: metadata.tags,
-                        url: `https://github.com/evocation01/data-sci/tree/main/${folder.name}`
-                    };
-                } catch (error) {
-                    console.warn(`Skipping ${folder.name}, metadata.json missing or invalid.`);
-                    return null;
-                }
-            })
-        );
-
-        projects = projects.filter(proj => proj !== null); // ✅ Remove null entries
         displayProjects(projects, ["data-science"]);
     } catch (error) {
         console.error("Error fetching Data Science projects:", error);
