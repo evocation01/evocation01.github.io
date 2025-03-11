@@ -8,12 +8,11 @@ async function fetchDataScienceProjects() {
         const data = await response.json();
         console.log("✅ Fetched Data Science JSON:", data); // Debugging log
 
-        if (!Array.isArray(data)) {
-            throw new Error("Invalid data format: Expected an array.");
-        }
-
-        let projects = data
-            .filter(item => item.type === "file") // ✅ Only process files as  projects
+        // Ensure data is an array, otherwise extract files if needed
+        const files = Array.isArray(data) ? data : data.files || [];
+        
+        let projects = files
+            .filter(item => item.type === "file") // ✅ Only process files as projects
             .map(file => ({
                 name: file.name,
                 url: `https://github.com/evocation01/data-sci/blob/main/${file.name}`
