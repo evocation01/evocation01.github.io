@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Excel",
+    "path": "Excel",
+    "sha": "85898131decd68eca32076b9ae29cbc4b2de33c7",
+    "size": 0,
+    "url": "https://api.github.com/repos/evocation01/data-sci/contents/Excel?ref=main",
+    "html_url": "https://github.com/evocation01/data-sci/tree/main/Excel",
+    "git_url": "https://api.github.com/repos/evocation01/data-sci/git/trees/85898131decd68eca32076b9ae29cbc4b2de33c7",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/evocation01/data-sci/contents/Excel?ref=main",
+      "git": "https://api.github.com/repos/evocation01/data-sci/git/trees/85898131decd68eca32076b9ae29cbc4b2de33c7",
+      "html": "https://github.com/evocation01/data-sci/tree/main/Excel"
+    }
+  },
+  {
+    "name": "LICENSE",
+    "path": "LICENSE",
+    "sha": "f288702d2fa16d3cdf0035b15a9fcbc552cd88e7",
+    "size": 35149,
+    "url": "https://api.github.com/repos/evocation01/data-sci/contents/LICENSE?ref=main",
+    "html_url": "https://github.com/evocation01/data-sci/blob/main/LICENSE",
+    "git_url": "https://api.github.com/repos/evocation01/data-sci/git/blobs/f288702d2fa16d3cdf0035b15a9fcbc552cd88e7",
+    "download_url": "https://raw.githubusercontent.com/evocation01/data-sci/main/LICENSE",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/evocation01/data-sci/contents/LICENSE?ref=main",
+      "git": "https://api.github.com/repos/evocation01/data-sci/git/blobs/f288702d2fa16d3cdf0035b15a9fcbc552cd88e7",
+      "html": "https://github.com/evocation01/data-sci/blob/main/LICENSE"
+    }
+  },
+  {
+    "name": "README.md",
+    "path": "README.md",
+    "sha": "ac82a77d1f5394d48a15b9c6f35c3ff339e5f441",
+    "size": 206,
+    "url": "https://api.github.com/repos/evocation01/data-sci/contents/README.md?ref=main",
+    "html_url": "https://github.com/evocation01/data-sci/blob/main/README.md",
+    "git_url": "https://api.github.com/repos/evocation01/data-sci/git/blobs/ac82a77d1f5394d48a15b9c6f35c3ff339e5f441",
+    "download_url": "https://raw.githubusercontent.com/evocation01/data-sci/main/README.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/evocation01/data-sci/contents/README.md?ref=main",
+      "git": "https://api.github.com/repos/evocation01/data-sci/git/blobs/ac82a77d1f5394d48a15b9c6f35c3ff339e5f441",
+      "html": "https://github.com/evocation01/data-sci/blob/main/README.md"
+    }
+  }
+]
