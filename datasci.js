@@ -13,7 +13,7 @@ async function fetchDataScienceProjects() {
         }
 
         let projects = data
-            .filter(item => item.type === "file") // ✅ Only process files as projects
+            .filter(item => item.type === "file") // ✅ Only process files as  projects
             .map(file => ({
                 name: file.name,
                 url: `https://github.com/evocation01/data-sci/blob/main/${file.name}`
