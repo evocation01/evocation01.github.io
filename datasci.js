@@ -6,12 +6,12 @@ async function fetchDataScienceProjects() {
         const data = await response.json();
 
         let projects = await Promise.all(data
-            .filter(item => item.type === "dir")
+            .filter(item => item.type === "dir") // ✅ Only check folders
             .map(async folder => {
                 const metadataUrl = `https://raw.githubusercontent.com/evocation01/data-sci/main/${folder.name}/metadata.json`;
                 try {
                     const metaResponse = await fetch(metadataUrl);
-                    if (!metaResponse.ok) return null;
+                    if (!metaResponse.ok) return null;  // ✅ Skip if metadata.json is missing
                     const metadata = await metaResponse.json();
 
                     return {
@@ -26,7 +26,7 @@ async function fetchDataScienceProjects() {
             })
         );
 
-        projects = projects.filter(proj => proj !== null);
+        projects = projects.filter(proj => proj !== null); // ✅ Remove null entries
         displayProjects(projects, ["data-science"]);
     } catch (error) {
         console.error("Error fetching Data Science projects:", error);
