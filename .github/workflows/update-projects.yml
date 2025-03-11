@@ -15,9 +15,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          persist-credentials: false  # ✅ Required for custom authentication
 
       - name: Create data directory
-        run: mkdir -p data  # ✅ Ensure data/ folder exists
+        run: mkdir -p data  # ✅ Ensures data/ folder exists
 
       - name: Fetch Projects Repository Data
         run: |
@@ -46,4 +48,4 @@ jobs:
           git config --global user.email "actions@github.com"
           git add data/projects.json data/data-sci.json data/power-bi.json
           git commit -m "🔄 Auto-update project data" || echo "No changes to commit"
-          git push
+          git push https://x-access-token:${{ secrets.PORTFOLIO_PAGE_TOKEN }}@github.com/evocation01/evocation01.github.io.git main
